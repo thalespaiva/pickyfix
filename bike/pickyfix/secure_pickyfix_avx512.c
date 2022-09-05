@@ -84,7 +84,7 @@ get_reduced_counters_avx512(IN fixflip_upc_t *ff_upc,
     out = _mm512_srli_epi16(out, n_right_shift);
     out = _mm512_and_si512(out, shift_mask);
 
-    out = _mm512_mask_set1_epi8(out, out_bounds, 0xFF);
+    out = _mm512_mask_set1_epi8(out, out_bounds, -1);
 
     return out;
 }
@@ -124,7 +124,7 @@ reduce_upcs_then_count(OUT uint8_t *counts,
     __m512i shift_mask = _mm512_set1_epi8(0xFF >> n_right_shift);
 
     __m512i bucket_shares = _mm512_set1_epi8(0);
-    __m512i max_counters  = _mm512_set1_epi8(0xFF);
+    __m512i max_counters  = _mm512_set1_epi8(-1);
 
     // The two following loops are responsible for reducing the UPC counter and
     // counting it simultaneously.
