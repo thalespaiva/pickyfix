@@ -73,7 +73,7 @@ ifndef AARCH64
     CFLAGS += -mno-red-zone 
 endif
 CFLAGS += -std=c99
-CFLAGS += -fvisibility=hidden -funsigned-char -Wall -Wextra -Werror -Wpedantic
+CFLAGS += -fvisibility=hidden -Wall -Wextra -Werror -Wpedantic
 # CFLAGS += -fvisibility=hidden -funsigned-char -Wall -Wextra -Wpedantic # No Werror for testing
 CFLAGS += -Wunused -Wcomment -Wchar-subscripts -Wuninitialized -Wshadow
 CFLAGS += -Wwrite-strings -Wno-deprecated-declarations -Wno-unknown-pragmas -Wformat-security
