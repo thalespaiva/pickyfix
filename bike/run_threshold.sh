@@ -46,8 +46,8 @@ else
   exit 1
 fi
 
-# rm -f $outpath/execs/*
-# make_execs
+rm -f $outpath/execs/*
+make_execs
 rm -f $outpath/*.part*
 for i in $threads_ids; do
   run_threshold_exec $i $outpath &
