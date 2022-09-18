@@ -17,9 +17,8 @@ function run_cmp_errors() {
   pids[${i}]=$!
 }
 
-mkdir -p $outpath
 
-if [ "$#" -ne 4 ] || ! [ -d "$1" ]; then
+if [ "$#" -ne 4 ]; then
   echo "Usage: $0 <output path> <level> <n_tests> <'AVX512=1' | 'AVX2=1' | ''> " >&2
   exit 1
 fi
@@ -29,6 +28,7 @@ level=$2
 n_tests=$3
 avx_str=$4
 
+mkdir -p $outpath
 threads_ids=`seq 0 23`
 
 
