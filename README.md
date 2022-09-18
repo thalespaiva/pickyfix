@@ -45,7 +45,7 @@ This README serves as a guide to the supplementary material of our submission
 to CHES 2022. Our 3 main objectives are:
 
 1. Explain how to reproduce our results
-1. Identify our main original contribution - the implementation of PickFix
+1. Identify our main original contribution - the implementation of PickyFix
 1. Explain our data and the corresponding visualization tools
 
 **Important notice**: Our implementation is based on [BIKE Additional Implementation](https://bikesuite.org/files/round2/add-impl/BIKE_Additional.2020.02.09.zip) by Drucker, Kostic and Gueron.
