@@ -7,6 +7,7 @@ __Authors__: Thales Paiva and Routo Terada
 <!-- MarkdownTOC -->
 
 - Abstract
+- System setup
 - What is included in this repository
 - BIKE code - Compiling and Running
     - Compilation Flags
@@ -53,7 +54,35 @@ Therefore, most of the code in the `bike` directory comes from their implementat
 Our implementation of PickyFix is meant to be plugged in to their implementation, we tried to
 isolate the majority of our code into the `bike/pickyfix` directory.
 
+# System setup:
 
+We tested the code under the following systems:
+
+## Server 1
+
+```
+$ gcc --version
+gcc (GCC) 11.1.0
+$ cat /proc/cpuinfo | grep "model name" | head -n 1
+model name  : Intel(R) Xeon(R) Gold 5118 CPU @ 2.30GHz
+$ pipenv --version
+pipenv, version 2021.5.29
+$ python --version
+Python 3.9.5
+```
+
+## Server 2
+
+```
+$ gcc --version
+gcc (Debian 10.2.1-6) 10.2.1 20210110
+$ cat /proc/cpuinfo | grep "model name" | head -n 1
+model name  : Intel(R) Xeon(R) Gold 6148 CPU @ 2.40GHz
+$ pipenv --version
+pipenv, version 2022.4.8
+$ python --version
+Python 3.9.2
+```
 
 # What is included in this repository
 
