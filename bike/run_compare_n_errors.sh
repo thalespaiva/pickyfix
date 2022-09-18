@@ -1,3 +1,4 @@
+#!/bin/bash
 
 function make_execs() {
   mkdir -p $outpath/cmp_errors_tmp

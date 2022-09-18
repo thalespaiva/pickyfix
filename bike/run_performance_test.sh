@@ -1,3 +1,4 @@
+#!/bin/bash
 
 declare -a arguments=(
   "CC=gcc TEST_BGF=1 LEVEL=1 RDTSC=1 AVX512=1"
