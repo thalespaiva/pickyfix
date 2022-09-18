@@ -43,6 +43,7 @@ __Authors__: Thales Paiva and Routo Terada
 
 This README serves as a guide to the supplementary material of our submission
 to CHES 2022. Our 3 main objectives are:
+
 1. Explain how to reproduce our results
 1. Identify our main original contribution - the implementation of PickFix
 1. Explain our data and the corresponding visualization tools
@@ -114,6 +115,7 @@ kept the same building mechanism as they used.
 
 
 **Most important compilation flags inherited from BIKE Additional Implementation**:
+
  - `USE_NIST_RAND` : Use the RNG from NIST.
  - `USE_OPENSSL`   : Use OpenSSL for AES/SHA and GF2X multiplication.
                    OpenSSL must be installed on the platform.
@@ -125,6 +127,7 @@ kept the same building mechanism as they used.
  - `LEVEL`         : Security level (1/3/5).
 
 **Additional compilation flags we used**:
+
  - `R_BITS`: Defines the value of parameter `R_BITS` to be used for testing. This is specially important
     for the DFR extrapolation framework.
  - `ERROR_WEIGHT`: Defines the value of the error weight `T1` used for encryption. This is used for the concavity
@@ -206,6 +209,7 @@ the dependencies for the auxiliary python scripts.
 Let us start with the simple experiment: determine the UPC values for each counter
 
 ### Data to be reproduced
+
 * `data/counters/counters_level5.csv`
 
 ### Steps to reproduce
@@ -298,6 +302,7 @@ Results in output_compare_n_errors/output1.csv : ).
 ```
 
 ### Data to be reproduced
+
 * `data/compare_n_errors/n_errors.csv`
 
 ### Steps to reproduce
@@ -325,6 +330,7 @@ a fixed `n_flips` values when testing PickyFix. The script to run it is `bike/ru
 `AVX2=1`, the test takes only a few minutes to run, considering level 1 parameters.
 
 ### Data to be reproduced
+
 * `data/threshold/level1.csv`
 
 ### Steps to reproduce
@@ -383,6 +389,7 @@ PickyFix,1,2,10351,10000000,./bin/main,0.0001448
 ```
 
 Each line correspond to a DFR estimation using
+
 - `DECODER`: The decoder to use
 - `LEVEL`: The security level
 - `MAX_IT_LIST`: The number of iterations to use for the decoder
@@ -455,6 +462,7 @@ PickyFix,2,1,134,10351,1448,10000000,0.0001448
 ```
 
 ### Data to be reproduced
+
 * `data/dfr/dfr_all.csv`
 * `data/dfr/bgf_level1.csv`
 
@@ -482,6 +490,7 @@ The concavity experiment is a simple variant of the DFR experiment but with an e
 and a lower number of tests (otherwise it would be too costly).
 
 ### Data to be reproduced
+
 * `data/concavity/bgf_level1.csv`
 * `data/concavity/pf_level1.csv`
 
@@ -508,6 +517,7 @@ We now show how we estimated the performance of the algorithm. This is the only 
 we expect you to see slightly different results than ours, because of the nature of this data.
 
 ### Data to be reproduced
+
 * `data/performance/all.csv`
 
 ### Steps to reproduce
