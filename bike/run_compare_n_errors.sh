@@ -17,10 +17,10 @@ function run_cmp_errors() {
   pids[${i}]=$!
 }
 
-
+mkdir -p $outpath
 
 if [ "$#" -ne 4 ] || ! [ -d "$1" ]; then
-  echo 'Usage: $0 <output path> <level> <n_tests> <"AVX512=1" | "AVX2=1" | ""> ' >&2
+  echo "Usage: $0 <output path> <level> <n_tests> <'AVX512=1' | 'AVX2=1' | ''> " >&2
   exit 1
 fi
 
@@ -49,7 +49,6 @@ else
   exit 1
 fi
 
-mkdir -p $outpath
 
 
 rm -f $outpath/cmp_errors_tmp/*
