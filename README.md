@@ -212,6 +212,8 @@ Let us start with the simple experiment: determine the UPC values for each count
 
 * `data/counters/counters_level5.csv`
 
+This data file is used in Figure 2.
+
 ### Steps to reproduce
 
 Let us compile and run the experiment and check that the reproduced data is indeed equal to our data file.
@@ -305,6 +307,8 @@ Results in output_compare_n_errors/output1.csv : ).
 
 * `data/compare_n_errors/n_errors.csv`
 
+This data file is used in Figure 6 and Table 3.
+
 ### Steps to reproduce
 
 Let us compile and run the experiment and check that the reproduced data is indeed equal to our data file.
@@ -332,6 +336,8 @@ a fixed `n_flips` values when testing PickyFix. The script to run it is `bike/ru
 ### Data to be reproduced
 
 * `data/threshold/level1.csv`
+
+This data file is used in Figure 4.
 
 ### Steps to reproduce
 
@@ -464,7 +470,10 @@ PickyFix,2,1,134,10351,1448,10000000,0.0001448
 ### Data to be reproduced
 
 * `data/dfr/dfr_all.csv`
+    Used for Figure 8.
 * `data/dfr/bgf_level1.csv`
+    Used for Figure 3.
+
 
 ### Steps to reproduce
 
@@ -492,7 +501,9 @@ and a lower number of tests (otherwise it would be too costly).
 ### Data to be reproduced
 
 * `data/concavity/bgf_level1.csv`
+    Used for Figure 5.
 * `data/concavity/pf_level1.csv`
+    Used for Figure 7.
 
 ### Steps to reproduce
 
@@ -519,6 +530,8 @@ we expect you to see slightly different results than ours, because of the nature
 ### Data to be reproduced
 
 * `data/performance/all.csv`
+
+Used for Table 5.
 
 ### Steps to reproduce
 
