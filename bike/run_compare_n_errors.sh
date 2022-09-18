@@ -49,6 +49,8 @@ else
   exit 1
 fi
 
+mkdir -p $outpath
+
 
 rm -f $outpath/cmp_errors_tmp/*
 rm -f $outpath/*.part*
