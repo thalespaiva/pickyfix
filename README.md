@@ -220,7 +220,7 @@ Let us compile and run the experiment and check that the reproduced data is inde
 ```
 $ mkdir -p reproduced/counters
 $ make clean; make LEVEL=5 TEST_PICKYFIX=1 AVX2=1
-$ ./bin/counters 1 > reproduced/counters/counters_level5.csv
+$ ./bin/counters 10 > reproduced/counters/counters_level5.csv
 $ diff reproduced/counters/counters_level5.csv ../data/counters/counters_level5.csv
 ```
 
