@@ -153,7 +153,7 @@ class Experiment():
         df = pd.read_csv(self.get_stdout_thread_fpath(base_dir_for_outputs, 0))
         for i in range(1, n_threads):
             tmp_df = pd.read_csv(self.get_stdout_thread_fpath(base_dir_for_outputs, i))
-            df = df.append(tmp_df, ignore_index=True)
+            df = df._append(tmp_df, ignore_index=True)
 
         merged_dfr = df.groupby(['decoder', 'n_iterations', 'level', 'error_weight', 'r_bits'], as_index=False) \
                       .agg({'n_failures': 'sum', 'n_tests': 'sum'})
@@ -248,7 +248,7 @@ def run_full_experiment(args):
             print('==================================================================================')
             print()
 
-            results_df = results_df.append(df, ignore_index=True)
+            results_df = results_df._append(df, ignore_index=True)
             results_df.to_csv(os.path.join(args.working_dir, 'dfr_results.out'), index=False)
 
             if args.stop_if_ff_dfr_is_zero:
