@@ -28,8 +28,8 @@
 // #define TEST_PICKYFIX
 // #endif
 
-#if !defined(TEST_PICKYFIX) && !defined(TEST_BGF)
-#define TEST_PICKYFIX
+#if !defined(TEST_PICKYFIX) && !defined(TEST_BGF) && !defined(TEST_WEIGHTEDFIX)
+#define TEST_WEIGHTEDFIX
 #endif
 
 
@@ -72,6 +72,11 @@ main(int argc, char *argv[]) {
 #ifdef TEST_BGF
     printf(IMPLEMENTATION ",BGF,%d,%d,%d,", LEVEL, MAX_IT, R_BITS);
     MEASURE(" ", res = crypto_kem_dec_bgf(k_dec, ct, sk););
+    assert(res == SUCCESS);
+#endif
+#ifdef TEST_WEIGHTEDFIX
+    printf(IMPLEMENTATION ",WeightedFix,%d,%d,%d,", LEVEL, MAX_IT, R_BITS);
+    MEASURE(" ", res = crypto_kem_dec_weightedfix(k_dec, ct, sk););
     assert(res == SUCCESS);
 #endif
 

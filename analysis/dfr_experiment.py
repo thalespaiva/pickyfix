@@ -51,6 +51,8 @@ class Experiment():
             dec_option = 'TEST_PICKYFIX=1'
         elif self.decoder == 'BOTH':
             dec_option = 'TEST_BGF=1 TEST_PICKYFIX=1'
+        elif self.decoder == 'WeightedFix':
+            dec_option = 'TEST_WEIGHTEDFIX=1'
 
         command_line = [
             f'make',

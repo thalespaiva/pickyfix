@@ -1,6 +1,6 @@
 CC ?= gcc
 
-INC := -I${ROOT} -I${ROOT}/common -I${ROOT}/decode -I${ROOT}/prf -I${ROOT}/hash -I${ROOT}/gf2x -I${ROOT}/pickyfix
+INC := -I${ROOT} -I${ROOT}/common -I${ROOT}/decode -I${ROOT}/prf -I${ROOT}/hash -I${ROOT}/gf2x -I${ROOT}/pickyfix -I${ROOT}/weightedfix
 
 # CFLAGS := -ggdb -O3 $(INC) -pg
 CFLAGS := -O3 $(INC)
@@ -43,6 +43,10 @@ endif
 
 ifdef TEST_PICKYFIX
     CFLAGS += -DTEST_PICKYFIX
+endif
+
+ifdef TEST_WEIGHTEDFIX
+    CFLAGS += -DTEST_WEIGHTEDFIX
 endif
 
 ifdef MAX_IT

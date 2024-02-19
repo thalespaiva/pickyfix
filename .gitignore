@@ -130,3 +130,7 @@ dmypy.json
 
 # Directory used for old data
 old/
+
+.vscode
+analysis/reproduced
+

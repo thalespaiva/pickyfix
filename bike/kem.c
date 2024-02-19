@@ -25,6 +25,7 @@
 #include "sha.h"
 
 #include "pickyfix.h"
+#include "weightedfix.h"
 
 _INLINE_ void
 split_e(OUT split_e_t *splitted_e, IN const e_t *e) {
@@ -324,6 +325,58 @@ crypto_kem_dec_pickyfix(OUT unsigned char *     ss,
 
     DMSG("  Decoding.\n");
     uint32_t dec_ret = decode_pickyfix(&e, &syndrome, l_ct, l_sk) != SUCCESS ? 0 : 1;
+
+    DEFER_CLEANUP(split_e_t e2, split_e_cleanup);
+    DEFER_CLEANUP(pad_ct_t ce, pad_ct_cleanup);
+    GUARD(reencrypt(ce, &e2, &e, l_ct));
+
+    // Check if the decoding is successful.
+    // Check if the error weight equals T1.
+    // Check if (e0', e1') == (e0'', e1'').
+    volatile uint32_t success_cond;
+    success_cond = dec_ret;
+    success_cond &=
+        secure_cmp32(T1, r_bits_vector_weight(&e.val[0]) + r_bits_vector_weight(&e.val[1]));
+    success_cond &= secure_cmp((uint8_t *)&e, (uint8_t *)&e2, sizeof(e));
+
+    ss_t ss_succ = {0};
+    ss_t ss_fail = {0};
+
+    get_ss(&ss_succ, &ce[0].val, &ce[1].val, l_ct);
+    get_ss(&ss_fail, &l_sk->sigma0, &l_sk->sigma1, l_ct);
+
+    uint8_t mask = ~secure_l32_mask(0, success_cond);
+    for (uint32_t i = 0; i < sizeof(*l_ss); i++) {
+        l_ss->raw[i] = (mask & ss_succ.raw[i]) | (~mask & ss_fail.raw[i]);
+    }
+
+    DMSG("  Exit crypto_kem_dec.\n");
+    return SUCCESS;
+}
+
+// Decapsulate - ct is a key encapsulation message (ciphertext),
+//               sk is the private key,
+//               ss is the shared secret
+int
+crypto_kem_dec_weightedfix(OUT unsigned char *     ss,
+                           IN const unsigned char *ct,
+                           IN const unsigned char *sk) {
+    DMSG("  Enter crypto_kem_dec.\n");
+
+    // Convert to the types used by this implementation
+    const sk_t *l_sk = (const sk_t *)sk;
+    const ct_t *l_ct = (const ct_t *)ct;
+    ss_t *      l_ss = (ss_t *)ss;
+
+    // Force zero initialization.
+    DEFER_CLEANUP(syndrome_t syndrome = {0}, syndrome_cleanup);
+    DEFER_CLEANUP(split_e_t e, split_e_cleanup);
+
+    DMSG("  Computing s.\n");
+    GUARD(compute_syndrome(&syndrome, l_ct, l_sk));
+
+    DMSG("  Decoding.\n");
+    uint32_t dec_ret = decode_weightedfix(&e, &syndrome, l_ct, l_sk) != SUCCESS ? 0 : 1;
 
     DEFER_CLEANUP(split_e_t e2, split_e_cleanup);
     DEFER_CLEANUP(pad_ct_t ce, pad_ct_cleanup);

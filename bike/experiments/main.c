@@ -27,13 +27,14 @@
 // #define TEST_PICKYFIX
 // #endif
 
-#if !defined(TEST_PICKYFIX) && !defined(TEST_BGF)
-#define TEST_PICKYFIX
+#if !defined(TEST_PICKYFIX) && !defined(TEST_BGF) && !defined(TEST_WEIGHTEDFIX)
+#define TEST_WEIGHTEDFIX
 #endif
 
 typedef enum {
     DEC_BGF = 0,
     DEC_PICKYFIX,
+    DEC_WEIGHTEDFIX
 } Decoder;
 
 uint32_t
@@ -53,6 +54,9 @@ get_n_errors_for_decoding_challenge(Decoder dec,
             case DEC_PICKYFIX:
                 MEASURE("  decaps pickyfix", dec_rc = crypto_kem_dec_pickyfix(k_dec, ct, sk););
                 break;
+            case DEC_WEIGHTEDFIX:
+                MEASURE("  decaps weightedfix", dec_rc = crypto_kem_dec_weightedfix(k_dec, ct, sk););
+                break;
         }
     } else {
         switch (dec) {
@@ -61,6 +65,9 @@ get_n_errors_for_decoding_challenge(Decoder dec,
                 break;
             case DEC_PICKYFIX:
                 dec_rc = crypto_kem_dec_pickyfix(k_dec, ct, sk);
+                break;
+            case DEC_WEIGHTEDFIX:
+                dec_rc = crypto_kem_dec_weightedfix(k_dec, ct, sk);
                 break;
         }
     }
@@ -102,6 +109,7 @@ main(int argc, char *argv[]) {
 
     uint32_t final_nerrors_bgf      = 0;
     uint32_t final_nerrors_pickyfix = 0;
+    uint32_t final_nerrors_weightedfix = 0;
 
     int measure_flag = 0;
     if (argc == 5) {
@@ -116,6 +124,7 @@ main(int argc, char *argv[]) {
 
         uint32_t nerrors_bgf      = 0;
         uint32_t nerrors_pickyfix = 0;
+        uint32_t nerrors_weightedfix = 0;
 
         for (uint32_t i = 1; i <= nruns; i++) {
 
@@ -148,7 +157,13 @@ main(int argc, char *argv[]) {
             nerrors_pickyfix += get_n_errors_for_decoding_challenge(DEC_PICKYFIX, k_enc, k_dec, ct,
                                                                     sk, measure_flag);
 #endif
-
+#ifdef TEST_WEIGHTEDFIX
+            res = crypto_kem_enc(ct, k_enc, pk);
+            if (res != 0)
+                continue;
+            nerrors_weightedfix += get_n_errors_for_decoding_challenge(DEC_WEIGHTEDFIX, k_enc, k_dec, ct,
+                                                                    sk, measure_flag);
+#endif
             if ((i % 1000) == 0) {
 #ifdef TEST_BGF
                 fprintf(stderr, BG_OR_BGF ",%d,%d,%d,%d,%d,%d,thread%d\n", MAX_IT, LEVEL, R_BITS,
@@ -159,12 +174,17 @@ main(int argc, char *argv[]) {
                         nerrors_pickyfix, i, i_thread);
 
 #endif
+#ifdef TEST_WEIGHTEDFIX
+                fprintf(stderr, "WeightedFix,%d,%d,%d,%d,%d,%d,thread%d\n", MAX_IT, LEVEL, R_BITS, T1,
+                        nerrors_weightedfix, i, i_thread);
+#endif
             }
         }
 #pragma omp critical
         {
             final_nerrors_bgf += nerrors_bgf;
             final_nerrors_pickyfix += nerrors_pickyfix;
+            final_nerrors_weightedfix += nerrors_weightedfix;
         }
 
     }
@@ -175,6 +195,10 @@ main(int argc, char *argv[]) {
 #endif
 #ifdef TEST_PICKYFIX
     printf("PickyFix,%d,%d,%d,%d,%d,%d\n", MAX_IT, LEVEL, R_BITS, T1, final_nerrors_pickyfix,
+           ntests);
+#endif
+#ifdef TEST_WEIGHTEDFIX
+    printf("WeightedFix,%d,%d,%d,%d,%d,%d\n", MAX_IT, LEVEL, R_BITS, T1, final_nerrors_weightedfix,
            ntests);
 #endif
 

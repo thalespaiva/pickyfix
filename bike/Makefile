@@ -11,6 +11,7 @@ SUB_DIRS += hash
 SUB_DIRS += gf2x
 SUB_DIRS += common
 SUB_DIRS += pickyfix
+SUB_DIRS += weightedfix
 
 CSRC = kem.c
 
@@ -31,6 +32,7 @@ SRC_FOR_TIDY += hash/*.c
 SRC_FOR_TIDY += gf2x/*.c
 SRC_FOR_TIDY += common/*.c
 SRC_FOR_TIDY += pickyfix/*.c
+SRC_FOR_TIDY += weightedfix/*.c
 SRC_FOR_TIDY += experiments/*.c
 
 EXPERIMENTS_SRC := $(wildcard experiments/*.c)

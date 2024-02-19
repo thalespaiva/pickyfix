@@ -1,0 +1,4 @@
+DECODER,LEVEL,MAX_IT_LIST,R_BITS,N_TESTS,EXPERIMENT_CMD
+WeightedFix,1,2,10001,100,./bin/main
+WeightedFix,1,2,10101,100,./bin/main
+WeightedFix,1,2,10201,100,./bin/main

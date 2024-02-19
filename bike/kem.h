@@ -45,4 +45,10 @@ crypto_kem_dec_pickyfix(OUT unsigned char *     ss,
                         IN const unsigned char *sk);
 
 int
+crypto_kem_dec_weightedfix(OUT unsigned char *     ss,
+                           IN const unsigned char *ct,
+                           IN const unsigned char *sk);
+
+
+int
 crypto_kem_dec_bgf(OUT unsigned char *ss, IN const unsigned char *ct, IN const unsigned char *sk);
